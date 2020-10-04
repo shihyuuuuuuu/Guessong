@@ -6,3 +6,8 @@
 
 # pycache
 *.pyc
+
+# migrations
+game/migrations/*
+
+media/* 

@@ -1,11 +1,41 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-  <form action="" method="post">
-    {% csrf_token %}
-    <table>
-      {{ form.as_table }}
-    </table>
-    <input type="submit" value="Submit">
-  </form>
+<div class="row">
+    <div class="four wide computer twelve wide mobile centered column">
+        <form class="ui form" action="" method="post">
+            <!--table>
+            {{ form.as_table }}
+            </table-->
+            {% csrf_token %}
+            <div class="field">
+                <div class="ui left icon input">
+                    <i class="linkify icon"></i>
+                    {{ form.url }}
+                </div>
+            </div>
+            <div class="field">
+                <div class="ui left icon input">
+                    <i class="music icon"></i>
+                    {{ form.song_name }}
+                </div>
+            </div>
+            <div class="field">
+                <div class="ui left icon input">
+                    <i class="user icon"></i>
+                    {{ form.singer }}
+                </div>
+            </div>
+            <button class="ui inverted button" type="submit">Submit</button>
+        </form>
+    </div>
+</div>
+<div class="row">
+    <div class="centered column" id="addsong">
+        <a href="{% url 'index' %}" style="color: #fff;">
+            <span>Back to game</span>
+            <i class="arrow circle left icon"></i>
+        </a>
+    </div>
+</div>
 {% endblock %}

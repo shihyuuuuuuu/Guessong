@@ -4,11 +4,22 @@
   {% block title %}<title>Guessong</title>{% endblock %}
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
   <!-- Add additional CSS in static file -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@900&family=Pacifico&display=swap" rel="stylesheet">
   {% load static %}
   <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
-    {% block content %}{% endblock %}
+    <div class="ui grid">
+      <div class="title sixteen wide centered column">
+        <h1>Guessong</h1>
+        <h3>Listen, Guess, Win</h3>
+      </div>
+      {% block content %}{% endblock %}
+    </div>
+    
 </body>
 </html>

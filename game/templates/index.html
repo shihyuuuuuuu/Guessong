@@ -1,7 +1,10 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-  <h1>Guessong</h1>
-  <p>Welcome to guessong, a website developed by <em>shihyuuuuuuu</em>!</p>
-  <h2>Dynamic content</h2>
+<div class="centered column" id="addsong">
+  <a href="{% url 'addsong' %}" style="color: #fff;">
+    <span>Add new song</span>
+    <i class="arrow circle right icon"></i>
+  </a>
+</div>
 {% endblock %}
