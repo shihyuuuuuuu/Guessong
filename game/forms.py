@@ -5,7 +5,8 @@ class AddSongForm(forms.Form):
         required = True,
         widget = forms.TextInput(
             attrs = {
-                'placeholder': '請貼上歌曲 Youtube 連結',
+                'placeholder': 'Paste the youtube link of the song',
+                'title': 'Paste the youtube link of the song'
             }
         )
     )
@@ -14,7 +15,8 @@ class AddSongForm(forms.Form):
         required=False,
         widget = forms.TextInput(
             attrs = {
-                'placeholder': '請輸入歌曲名',
+                'placeholder': 'Input the song name',
+                'title': 'Input the song name'
             }
         )
     )
@@ -23,7 +25,8 @@ class AddSongForm(forms.Form):
         required=False,
         widget = forms.TextInput(
             attrs = {
-                'placeholder': '請輸入歌手名',
+                'placeholder': 'Input the singer name',
+                'title': 'Input the singer name'
             }
         )
     )

@@ -1,7 +1,8 @@
 $(document).ready(function () {
     // If the add-song button clicked, post a request with the data.
     $('#addsong_btn').click(function () {
-        $('#success_msg').text("");
+        $('#success_msg').text("Adding song..., please wait.");
+        $('#addsong_btn').attr('disabled','disabled');
         $.post({
             url: '',
             data: {
@@ -11,12 +12,9 @@ $(document).ready(function () {
                 csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
             },
             success: function (msg) {
+                $('#addsong_btn').removeAttr('disabled');
                 $('form')[0].reset();
-                if (msg == 'Song Added!') {
-                    $('#success_msg').text("Added song successfully");
-                } else {
-                    $('#success_msg').text("Failed to add song");
-                }
+                $('#success_msg').text(msg);
             },
         });
     });

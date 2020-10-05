@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.core.files import File
+from django.db.models import Q
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from pytube import YouTube
@@ -22,13 +23,19 @@ def index(request):
             response = {'endGame': True, }
         else:
             song_cnt = Song.objects.count()
-            song = Song.objects.filter(sid=randint(0, song_cnt-1))[0]
+            prevs = request.session.get('songs', [])
+            while True:
+                i = randint(0, song_cnt-1)
+                if i not in prevs:
+                    request.session['songs'] = request.session.get('songs', []) + [i]
+                    break
+            song = Song.objects.filter(sid=i)[0]
             choices = [song.title]
 
             sound = AudioSegment.from_file(str(song.audio)[1:])
             random_point = randint(20000, len(sound) - 30000)
-            first_half = sound[random_point:random_point+10000]
-            first_half.export("media/music/tmp.mp3", format="mp3")
+            ten_sec = sound[random_point:random_point+10000]
+            ten_sec.export("media/music/tmp.mp3", format="mp3")
 
             response = {
                 'endGame': False,
@@ -46,6 +53,7 @@ def index(request):
         return JsonResponse(response)
     else:
         request.session['ques_num'] = 0
+        request.session['songs'] = []
         context = {
             'nickname': request.session.get('nickname', ""),
         }
@@ -60,14 +68,17 @@ def addsong(request):
         # Create a form instance and populate it with data from the request:
         form = AddSongForm(request.POST)
         if form.is_valid():
-            url = form.cleaned_data['url']
-            singer = form.cleaned_data['singer']
-            song_name = form.cleaned_data['song_name']
-            yt = YouTube(url)
-            stream = yt.streams.filter(only_audio=True)[0]
-            path = stream.download(settings.MEDIA_ROOT+'/music')
-            Song.objects.create(sid=song_cnt, title=song_name if song_name else yt.title, author=yt.author, singer=singer if singer else yt.author, seconds=yt.length, views=yt.views, audio=settings.MEDIA_URL+path[path.index('music/'):], url=url)
-            return HttpResponse("Song Added!")
+            if not Song.objects.filter(Q(url__startswith=form.cleaned_data['url'].split('&')[0])):
+                url = form.cleaned_data['url']
+                singer = form.cleaned_data['singer']
+                song_name = form.cleaned_data['song_name']
+                yt = YouTube(url)
+                stream = yt.streams.filter(only_audio=True)[0]
+                path = stream.download(settings.MEDIA_ROOT+'/music')
+                Song.objects.create(sid=song_cnt, title=song_name if song_name else yt.title, author=yt.author, singer=singer if singer else yt.author, seconds=yt.length, views=yt.views, audio=settings.MEDIA_URL+path[path.index('music/'):], url=url)
+                return HttpResponse("Song Added!")
+            else:
+                return HttpResponse("Song Exist!")
 
     context = {
         'form': AddSongForm(),
