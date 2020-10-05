@@ -8,6 +8,7 @@ class Song(models.Model):
     singer = models.CharField(max_length=100, default="unknown singer")
     seconds = models.IntegerField()
     views = models.IntegerField()
+    audio = models.FileField()
     url = models.URLField()
 
     def __str__(self):

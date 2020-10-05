@@ -1,10 +1,44 @@
 {% extends "base_generic.html" %}
 
+{% block styles %}
+{% load static %}
+<script src="{% static 'js/game.js' %}"></script>
+{% endblock %}
+
 {% block content %}
-<div class="centered column" id="addsong">
-  <a href="{% url 'addsong' %}" style="color: #fff;">
-    <span>Add new song</span>
-    <i class="arrow circle right icon"></i>
-  </a>
+<div class="row">
+  <div class="sixteen wide centered column" id="music">
+    <audio src="" id="audio"></audio>
+  </div>
+  <div class="sixteen wide column" id="start_area">
+    <button class="ui inverted button" id="start_btn">Start</button>
+  </div>
+  <div class="sixteen wide centered column" id="choices">
+    <div id="score_txt">
+      <span>Score: </span>
+      <span id="score">0.00</span>
+      <span id="added"></span>
+    </div>
+    <div id="countdown">10</div>
+    <button class="ui button">???</button>
+    <button class="ui button">???</button>
+    <button class="ui button">???</button>
+    <button class="ui button">???</button>
+  </div>
+  <div class="sixteen wide column" id="final_score">
+    <div class="content">
+      <div>Final Score:</div>
+      <span style="font-size: 5rem;"></span>
+      <button class="ui inverted button">Restart</button>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="centered column" id="addsong">
+    <a href="{% url 'addsong' %}" style="color: #fff;">
+      <span>Add new song</span>
+      <i class="arrow circle right icon"></i>
+    </a>
+  </div>
 </div>
 {% endblock %}

@@ -1,12 +1,14 @@
 {% extends "base_generic.html" %}
 
+{% block styles %}
+{% load static %}
+<script src="{% static 'js/addsong.js' %}"></script>
+{% endblock %}
+
 {% block content %}
 <div class="row">
     <div class="four wide computer twelve wide mobile centered column">
-        <form class="ui form" action="" method="post">
-            <!--table>
-            {{ form.as_table }}
-            </table-->
+        <form class="ui form">
             {% csrf_token %}
             <div class="field">
                 <div class="ui left icon input">
@@ -26,7 +28,8 @@
                     {{ form.singer }}
                 </div>
             </div>
-            <button class="ui inverted button" type="submit">Submit</button>
+            <button class="ui inverted button" type="button" id="addsong_btn">Submit</button>
+            <div id="success_msg"></div>
         </form>
     </div>
 </div>

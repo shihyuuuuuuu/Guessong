@@ -30,5 +30,71 @@ body {
 }
 
 form {
+    height: 20rem;
+    padding-top: 3rem;
     text-align: center;
+}
+
+#success_msg {
+    color: rgb(83, 79, 79);
+    font-family: 'Nunito', sans-serif;
+    font-size: 1rem;
+    height: 2rem;
+    margin: 1rem;
+}
+
+#music {
+    margin: 0 auto;
+    text-align: center;
+}
+
+#start_area {
+    line-height: 20rem;
+}
+
+#choices {
+    display: none;
+    padding: 0 0 3rem 0;
+}
+
+#final_score {
+    color: #fff;
+    font-family: 'Nunito', sans-serif;
+    font-size: 2rem;
+    line-height: 20rem;
+}
+
+#final_score .content {
+    display: inline-block;
+    line-height: 5rem;
+}
+
+#final_score button {
+    display: block;
+    margin: 2rem auto;
+}
+
+#start_area, #choices, #final_score {
+    height: 20rem;
+    margin: 0 auto;
+    text-align: center;
+}
+
+#countdown, #score_txt {
+    color: #fff;
+    font-family: 'Nunito', sans-serif;
+    font-size: 2rem;
+    margin: 1rem auto;
+}
+
+#added {
+    color: rgba(22, 6, 6, 0.5);
+    font-size: 1rem;
+    position: absolute;
+}
+
+#choices button {
+    display: block;
+    margin: 1rem auto;
+    width: 20rem;
 }
