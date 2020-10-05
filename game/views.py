@@ -5,7 +5,7 @@ from django.shortcuts import render
 from pytube import YouTube
 from pytube import request
 from random import randint
-from .models import Song
+from .models import Song, Leader
 from .forms import AddSongForm
 from pydub import AudioSegment
 import random
@@ -17,7 +17,7 @@ def index(request):
         ques_num = request.session.get('ques_num', 0)
         request.session['ques_num'] = ques_num + 1
         request.session['nickname'] = request.GET.get('nickname', "")
-        if request.session['ques_num'] >= 11:
+        if request.session['ques_num'] > 10:
             request.session['ques_num'] = 0
             response = {'endGame': True, }
         else:
@@ -53,7 +53,6 @@ def index(request):
 
 
 def addsong(request):
-
     # If this is a POST request then process the Form data
     if request.method == 'POST':
         song_cnt = Song.objects.count()
@@ -67,10 +66,7 @@ def addsong(request):
             yt = YouTube(url)
             stream = yt.streams.filter(only_audio=True)[0]
             path = stream.download(settings.MEDIA_ROOT+'/music')
-            print(path)
-
-            Song.objects.create(sid=song_cnt, title=song_name if song_name else yt.title, author=yt.author, singer=singer if singer else yt.author,
-                                seconds=yt.length, views=yt.views, audio=settings.MEDIA_URL+path[path.index('music/'):], url=url)
+            Song.objects.create(sid=song_cnt, title=song_name if song_name else yt.title, author=yt.author, singer=singer if singer else yt.author, seconds=yt.length, views=yt.views, audio=settings.MEDIA_URL+path[path.index('music/'):], url=url)
             return HttpResponse("Song Added!")
 
     context = {
@@ -78,3 +74,27 @@ def addsong(request):
     }
 
     return render(request, 'addsong.html', context=context)
+
+def updateleader(request):
+    if request.method == 'POST':
+        nickname = request.POST.get('nickname', "")
+        score = float(request.POST.get('score', 0))
+        if Leader.objects.count() < 10:
+            Leader.objects.create(nickname=nickname, score=score)
+        else:
+            leader_list = Leader.objects.values_list('nickname', 'score')
+            min_score = leader_list.order_by('score').first()[1]
+            if score > min_score:
+                loser = Leader.objects.filter(score=min_score)[0]
+                loser.nickname = nickname
+                loser.score = score
+                loser.save()
+    return HttpResponse("Song Added!")
+
+from django.views import generic
+
+class LeaderBoardView(generic.ListView):
+    model = Leader
+    template_name = 'leaderboard.html'
+    def get_queryset(self):
+        return Leader.objects.order_by('-score')

@@ -6,6 +6,8 @@
 {% endblock %}
 
 {% block content %}
+<form action=”.” style="display: none;" method=”post”>{% csrf_token %}
+</form>
 <div class="row">
   <div class="sixteen wide centered column" id="music">
     <audio src="" id="audio"></audio>
@@ -13,9 +15,9 @@
   <div class="sixteen wide column" id="start_area">
     <div class="ui input">
       <input type="text" id="nickname" placeholder="Input your nickname" value="{{ nickname }}">
+    </div>
+    <button class="ui inverted button" id="start_btn">Play</button>
   </div>
-  <button class="ui inverted button" id="start_btn">Play</button>
-</div>
   <div class="sixteen wide centered column" id="choices">
     <div id="score_txt">
       <span>Score: </span>
@@ -32,7 +34,7 @@
     <div class="content">
       <div>Final Score:</div>
       <span style="font-size: 5rem;"></span>
-      <button class="ui inverted button">Restart</button>
+      <button class="ui inverted button">Continue</button>
     </div>
   </div>
 </div>

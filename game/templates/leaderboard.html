@@ -1,0 +1,44 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<div class="row">
+  <div class="five wide computer fourteen wide mobile centered column" id="leaderboard">
+    {% if leader_list %}
+    <table class="ui very basic inverted table">
+      <thead>
+        <tr style="font-size: 1.6rem;">
+          <th>Ranking</th>
+          <th>User</th>
+          <th>Score</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for leader in leader_list %}
+        <tr>
+          <td>{{ forloop.counter }}</td>
+          <td>{{ leader.nickname }}</td>
+          <td>{{leader.score}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p style="color: #fff;">There are no leaders in the leaderboard.</p>
+    {% endif %}
+    <button class="ui inverted button">Home</button>
+  </div>
+</div>
+<div class="row">
+  <div class="centered column" id="addsong">
+    <a href="{% url 'index' %}" style="color: #fff;">
+      <span>Back to game</span>
+      <i class="arrow circle left icon"></i>
+    </a>
+  </div>
+</div>
+<script>
+  $('#leaderboard button').click(function () {
+    window.location.href = "/";
+  });
+</script>
+{% endblock %}

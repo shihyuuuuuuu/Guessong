@@ -14,3 +14,10 @@ class Song(models.Model):
     def __str__(self):
         """String for representing the Model object."""
         return self.title
+
+class Leader(models.Model):
+    nickname = models.CharField(max_length=200)
+    score = models.FloatField()
+    def __str__(self):
+        """String for representing the Model object."""
+        return self.nickname + ' (' + str(self.score) + ')'

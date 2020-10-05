@@ -1,6 +1,6 @@
 $(document).ready(function () {
     $('#final_score').hide();
-    $('#start_btn, #final_score button').click(function () {
+    $('#start_btn').click(function () {
         if ($('#nickname').val() != "") {
             $('#choices button').css('pointer-events', "none");
             $('#score').text(0);
@@ -9,13 +9,17 @@ $(document).ready(function () {
             $('#start_area').hide();
             $('#choices').show();
             $('#final_score').hide();
+            $('#addsong').hide();
             $('#nickname').css("border", "1px solid rgba(34,36,38,.15)");
         } else {
             $('#nickname').css("border", "1px solid red");
         }
     });
+    $('#final_score button').click(function () {
+        window.location.href = "leaderboard/";
+    });
     answer = "";
-    btn_clicked();
+    btnClicked();
 });
 
 function getQuestion(nickname) {
@@ -30,6 +34,7 @@ function getQuestion(nickname) {
                 $('#choices').hide();
                 $('#final_score').show();
                 $('#final_score span').text($('#score').text());
+                updateLeaderBoard();
             } else {
                 answer = msg['song']['title'];
                 $('#audio').attr("src", msg['song']['src']);
@@ -56,7 +61,7 @@ function getQuestion(nickname) {
     });
 };
 
-function btn_clicked() {
+function btnClicked() {
     $('#choices button').click(function () {
         $('#choices button').css('pointer-events', "none");
         if ($(this).text() == answer) {
@@ -76,5 +81,17 @@ function btn_clicked() {
             $(this).transition('shake', '500ms');
             $(`#choices button:contains(${answer})`).addClass("green");
         }
+    });
+}
+
+function updateLeaderBoard() {
+    $.post({
+        url: 'updateleader/',
+        data: {
+            'nickname': $('#nickname').val(),
+            'score': parseFloat($('#score').text()),
+            csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+        },
+        success: function () { },
     });
 }
