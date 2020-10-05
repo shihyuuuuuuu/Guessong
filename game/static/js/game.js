@@ -1,23 +1,29 @@
 $(document).ready(function () {
     $('#final_score').hide();
     $('#start_btn, #final_score button').click(function () {
-        $('#choices button').css('pointer-events', "none");
-        $('#score').text(0);
-        $("#choices .button").text('???');
-        getQuestion();
-        $('#start_area').hide();
-        $('#choices').show();
-        $('#final_score').hide();
+        if ($('#nickname').val() != "") {
+            $('#choices button').css('pointer-events', "none");
+            $('#score').text(0);
+            $("#choices .button").text('???');
+            getQuestion($('#nickname').val());
+            $('#start_area').hide();
+            $('#choices').show();
+            $('#final_score').hide();
+            $('#nickname').css("border", "1px solid rgba(34,36,38,.15)");
+        } else {
+            $('#nickname').css("border", "1px solid red");
+        }
     });
     answer = "";
     btn_clicked();
 });
 
-function getQuestion() {
+function getQuestion(nickname) {
     $.get({
         url: '',
         data: {
             'start': true,
+            'nickname': nickname,
         },
         success: function (msg) {
             if (msg['endGame']) {

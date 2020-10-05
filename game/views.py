@@ -16,6 +16,7 @@ def index(request):
     if request.method == 'GET' and request.GET:
         ques_num = request.session.get('ques_num', 0)
         request.session['ques_num'] = ques_num + 1
+        request.session['nickname'] = request.GET.get('nickname', "")
         if request.session['ques_num'] >= 11:
             request.session['ques_num'] = 0
             response = {'endGame': True, }
@@ -45,7 +46,10 @@ def index(request):
         return JsonResponse(response)
     else:
         request.session['ques_num'] = 0
-        return render(request, 'index.html')
+        context = {
+            'nickname': request.session.get('nickname', ""),
+        }
+        return render(request, 'index.html', context=context)
 
 
 def addsong(request):

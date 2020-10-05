@@ -11,8 +11,11 @@
     <audio src="" id="audio"></audio>
   </div>
   <div class="sixteen wide column" id="start_area">
-    <button class="ui inverted button" id="start_btn">Start</button>
+    <div class="ui input">
+      <input type="text" id="nickname" placeholder="Input your nickname" value="{{ nickname }}">
   </div>
+  <button class="ui inverted button" id="start_btn">Play</button>
+</div>
   <div class="sixteen wide centered column" id="choices">
     <div id="score_txt">
       <span>Score: </span>
