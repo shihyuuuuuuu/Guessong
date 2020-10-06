@@ -5,8 +5,8 @@ class AddSongForm(forms.Form):
         required = True,
         widget = forms.TextInput(
             attrs = {
-                'placeholder': 'Paste the youtube link of the song',
-                'title': 'Paste the youtube link of the song'
+                'placeholder': 'Paste the YouTube link of the song',
+                'title': 'Paste the YouTube link of the song'
             }
         )
     )
@@ -25,8 +25,8 @@ class AddSongForm(forms.Form):
         required=False,
         widget = forms.TextInput(
             attrs = {
-                'placeholder': 'Input the singer name',
-                'title': 'Input the singer name'
+                'placeholder': 'Input the singer name (Optional)',
+                'title': 'Input the singer name (Optional)'
             }
         )
     )

@@ -47,12 +47,12 @@ function getQuestion(nickname) {
                 }
                 $('#choices button').css('pointer-events', "auto").removeClass("red").removeClass("green");
                 timer = 10.0;
-                var timeoutID = setInterval(function () {
+                var timeIntervalID = setInterval(function () {
                     timer -= 0.01;
                     $('#countdown').text(timer.toFixed(2));
                 }, 10);
                 setTimeout(() => {
-                    clearInterval(timeoutID);
+                    clearInterval(timeIntervalID);
                     $('#countdown').text(10);
                     getQuestion();
                 }, 10000);
