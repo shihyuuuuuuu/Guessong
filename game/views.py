@@ -32,7 +32,7 @@ def index(request):
             song = Song.objects.filter(sid=i)[0]
             choices = [song.title]
 
-            sound = AudioSegment.from_file(str(song.audio)[1:])
+            sound = AudioSegment.from_file(str(song.audio)[:])
             random_point = randint(20000, len(sound) - 30000)
             ten_sec = sound[random_point:random_point+10000]
             ten_sec.export("media/music/tmp.mp3", format="mp3")
