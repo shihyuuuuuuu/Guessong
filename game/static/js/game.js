@@ -9,7 +9,7 @@ $(document).ready(function () {
             $('#start_area').hide();
             $('#choices').show();
             $('#final_score').hide();
-            $('#addsong').hide();
+            $('.link').hide();
             $('#nickname').css("border", "1px solid rgba(34,36,38,.15)");
         } else {
             $('#nickname').css("border", "1px solid red");
