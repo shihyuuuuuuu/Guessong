@@ -7,6 +7,11 @@
 
 {% block content %}
 <div class="row">
+    <div class="centered column link">
+        <span>Total: </span><span id="song_cnt">{{ song_cnt }}</span><span> songs</span>
+    </div>
+</div>
+<div class="row">
     <div class="four wide computer twelve wide mobile centered column">
         <form class="ui form">
             {% csrf_token %}

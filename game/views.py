@@ -61,10 +61,9 @@ def index(request):
 
 
 def addsong(request):
+    song_cnt = Song.objects.count()
     # If this is a POST request then process the Form data
     if request.method == 'POST':
-        song_cnt = Song.objects.count()
-
         # Create a form instance and populate it with data from the request:
         form = AddSongForm(request.POST)
         if form.is_valid():
@@ -76,11 +75,12 @@ def addsong(request):
                 stream = yt.streams.filter(only_audio=True)[0]
                 path = stream.download(settings.MEDIA_ROOT+'/music')
                 Song.objects.create(sid=song_cnt, title=song_name if song_name else yt.title, author=yt.author, singer=singer if singer else yt.author, seconds=yt.length, views=yt.views, audio=settings.MEDIA_URL+path[path.index('music/'):], url=url)
-                return HttpResponse("Song Added!")
+                return HttpResponse("Song Added!_" + str(song_cnt+1))
             else:
-                return HttpResponse("Song Exist!")
+                return HttpResponse("Song Exist!_" + str(song_cnt))
 
     context = {
+        'song_cnt': song_cnt,
         'form': AddSongForm(),
     }
 
@@ -90,7 +90,7 @@ def updateleader(request):
     if request.method == 'POST':
         nickname = request.POST.get('nickname', "")
         score = float(request.POST.get('score', 0))
-        if Leader.objects.count() < 10:
+        if Leader.objects.count() < 1000:
             Leader.objects.create(nickname=nickname, score=score)
         else:
             leader_list = Leader.objects.values_list('nickname', 'score')
@@ -108,4 +108,4 @@ class LeaderBoardView(generic.ListView):
     model = Leader
     template_name = 'leaderboard.html'
     def get_queryset(self):
-        return Leader.objects.order_by('-score')
+        return Leader.objects.order_by('-score')[:10]
