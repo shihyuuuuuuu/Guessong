@@ -39,7 +39,15 @@
   </div>
 </div>
 <div class="row">
-  <div class="centered column" id="addsong">
+  <div class="centered column link">
+    <a href="{% url 'leaderboard' %}" style="color: #fff;">
+      <span>Leader Board</span>
+      <i class="arrow circle right icon"></i>
+    </a>
+  </div>
+</div>
+<div class="row">
+  <div class="centered column link">
     <a href="{% url 'addsong' %}" style="color: #fff;">
       <span>Add new song</span>
       <i class="arrow circle right icon"></i>
