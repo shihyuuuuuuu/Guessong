@@ -10,13 +10,14 @@ Players can also add their favorite songs into the database by easily copy-paste
 ![Software architecture](images/structure.jpg)
 
 ## Development Requirements
-1. Ubuntu 18.04: development/deployment OS
+1. Ubuntu 18.04: Development/deployment OS
 2. [Pytube3](https://python-pytube.readthedocs.io/en/latest/): Python library for downloading Youtube videos
-3. Django 3.1: backend framework (python 3.6.9)
-4. HTML / CSS / JavaScript(JQuery): frontend interface
-5. SQLite: database
-6. DigitalOcean: website hosting in the cloud
-7. Git: version control
+3. Django 3.1: Backend framework (python 3.6.9)
+4. HTML / CSS / JavaScript(JQuery): Frontend interface
+5. Semantic UI 2.4.2: Frontend UI framework
+6. SQLite: Database
+7. DigitalOcean: Website hosting in the cloud
+8. Git: Version control
 
 ## How to Play
 1. Enter your nickname and play
